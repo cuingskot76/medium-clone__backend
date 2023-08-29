@@ -1,0 +1,70 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Medium Clone Blog API",
+    "description": "RESTful API for Medium Clone",
+    "contact": {
+      "email": "afrizapamujo@gmail.com",
+      "name": "Afrizal Setya Pamuji",
+      "url": "https://afrzl.vercel.app/"
+    },
+    "license": {
+      "name": "MIT License",
+      "url": "https://mit-license.org/"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://{environment}.mediumclone.afrizal.com/api/v1",
+      "variables": {
+        "environment": {
+          "default": "dev",
+          "description": "Server Environment",
+          "enum": ["dev", "staging", "production"]
+        }
+      }
+    }
+  ],
+  "paths": {
+    "/blogs": {
+      "get": {
+        "summary": "Get all blogs",
+        "description": "Get all active blogs by default"
+      }
+    },
+
+    "/blogs/trending": {
+      "get": {
+        "summary": "Get trending blogs",
+        "description": "Get all trending blogs"
+      }
+    },
+    "/blogs/tag": {
+      "get": {
+        "summary": "Get blogs by tag",
+        "description": "Get all blogs by tag"
+      }
+    },
+    "/blog": {
+      "post": {
+        "summary": "Create a blog",
+        "description": "Create a blog"
+      }
+    },
+    "/blog/{blogId}": {
+      "get": {
+        "summary": "Get a blog",
+        "description": "Get a blog by id"
+      },
+      "put": {
+        "summary": "Update a blog",
+        "description": "Update a blog by id"
+      },
+      "delete": {
+        "summary": "Delete a blog",
+        "description": "Delete a blog by id"
+      }
+    }
+  }
+}
