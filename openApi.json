@@ -26,44 +26,155 @@
       }
     }
   ],
+  "tags": [
+    {
+      "name": "blog"
+    }
+  ],
   "paths": {
     "/blogs": {
       "get": {
+        "tags": ["blog"],
         "summary": "Get all blogs",
-        "description": "Get all active blogs by default"
+        "description": "Get all active blogs by default",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Limit blog per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ]
       }
     },
 
     "/blogs/trending": {
       "get": {
+        "tags": ["blog"],
         "summary": "Get trending blogs",
-        "description": "Get all trending blogs"
+        "description": "Get all trending blogs",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Limit blog per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 6
+            }
+          }
+        ]
       }
     },
+
     "/blogs/tag": {
       "get": {
+        "tags": ["blog"],
         "summary": "Get blogs by tag",
-        "description": "Get all blogs by tag"
+        "description": "Get all blogs by tag",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "tag",
+            "description": "Get blog by tag",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Limit blog per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ]
       }
     },
+
     "/blog": {
       "post": {
+        "tags": ["blog"],
         "summary": "Create a blog",
         "description": "Create a blog"
       }
     },
+
     "/blog/{blogId}": {
       "get": {
+        "tags": ["blog"],
         "summary": "Get a blog",
         "description": "Get a blog by id"
       },
       "put": {
+        "tags": ["blog"],
         "summary": "Update a blog",
-        "description": "Update a blog by id"
+        "description": "Update a blog by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blogId",
+            "description": "Blog id to updated",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
       },
       "delete": {
+        "tags": ["blog"],
         "summary": "Delete a blog",
-        "description": "Delete a blog by id"
+        "description": "Delete a blog by id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "blogId",
+            "description": "Blog id to deleted",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ]
+      }
+    },
+
+    "/blog/search": {
+      "get": {
+        "tags": ["blog"],
+        "summary": "Search blogs",
+        "description": "Search blogs by title",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "title",
+            "description": "Search blog by title",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "in": "query",
+            "name": "limit",
+            "description": "Limit blog per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "default": 10
+            }
+          }
+        ]
       }
     }
   }
