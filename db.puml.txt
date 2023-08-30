@@ -1,0 +1,137 @@
+@startuml
+entity Post {
+    id: int <PK>
+    --
+    title: string
+    content: string
+    createdAt: datetime
+    updatedAt: datetime
+    published: boolean 
+    userId: int <FK>
+}
+
+entity User {
+    id: int <PK>
+    --
+    username: string
+    email: string <UNI>
+    createdAt: datetime
+    bio: string
+    image: string
+}
+
+entity Follow {
+
+    userId: int <FK>
+    followerId: int <FK>
+}
+
+entity PostLike {
+    id: int <PK>
+    --
+    userId: int <FK>
+    postId: int <FK>
+}
+
+entity CommentLike {
+    id: int <PK>
+    --
+    userId: int <FK>
+    commentId: int <FK>
+}
+
+entity Comment {
+    id: int <PK>
+    --
+    content: string
+    created_at: datetime
+    updated_at: datetime
+    userId: int <FK>
+    postId: int <FK>
+}
+
+entity CommentReply {
+    id: int <PK>
+    --
+    content: string
+    created_at: datetime
+    updated_at: datetime
+    userId: int <FK>
+    commentId: int <FK>
+}
+
+entity PostTag {
+    id: int <PK>
+    --
+    postId: int <FK>
+    tagId: int <FK>
+}
+
+entity Tag {
+    id: int <PK>
+    --
+    name: string
+}
+
+User ||--o{ Post
+note on link
+    Has 
+end note
+
+User ||--o{ Follow
+note on link
+    Following
+end note
+
+PostTag }o--|| Post
+note on link
+   Has
+end note
+
+Tag }o--|| PostTag
+note on link
+   Has
+end note
+
+Comment }o--|| Post
+note on link
+   Has
+end note
+
+Comment }o--|| User
+note on link
+   Has
+end note
+
+CommentLike }o--|| User
+note on link
+   Has
+end note
+
+PostLike }o--|| User
+note on link
+   Has
+end note
+
+CommentLike }o--|| Comment
+note on link
+   Has
+end note
+
+CommentReply }o--|| Comment
+note on link
+   Has
+end note
+
+CommentReply }o--|| User
+note on link
+   Has
+end note
+
+PostLike }o--|| Post
+note on link
+   Has
+end note
+
+
+@enduml

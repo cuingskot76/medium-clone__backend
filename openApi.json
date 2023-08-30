@@ -48,7 +48,8 @@
               "default": 10
             }
           }
-        ]
+        ],
+        "responses": {}
       }
     },
 
@@ -105,7 +106,41 @@
       "post": {
         "tags": ["blog"],
         "summary": "Create a blog",
-        "description": "Create a blog"
+        "description": "Create a blog",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                }
+              },
+              "examples": {
+                "programming": {
+                  "description": "Example blog with programming title",
+                  "value": {
+                    "title": "How to learn programming",
+                    "content": "Lorem ipsum",
+                    "tags": ["programming", "javascript", "nodejs"]
+                  }
+                },
+                "design": {
+                  "description": "Example blog with design title",
+                  "value": {
+                    "title": "How to learn design",
+                    "content": "Lorem ipsum"
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
@@ -129,7 +164,27 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "title": {
+                    "type": "string"
+                  },
+                  "content": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "title": "How to learn programming",
+                  "content": "Lorem ipsum"
+                }
+              }
+            }
+          }
+        }
       },
       "delete": {
         "tags": ["blog"],
@@ -172,6 +227,12 @@
             "schema": {
               "type": "integer",
               "default": 10
+            },
+            "examples": {
+              "programming": {
+                "description": "Example blog with programming title",
+                "value": "How to learn programming"
+              }
             }
           }
         ]
