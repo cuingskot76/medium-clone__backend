@@ -636,21 +636,27 @@
     },
 
     "/users/@/{userName}": {
-      "get": {
+      "post": {
         "tags": ["user"],
         "summary": "Get a user",
         "description": "Get a user by username",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "username",
-            "description": "User name to get a user ",
-            "required": true,
-            "schema": {
-              "type": "string"
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "username": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "username": "afrizal"
+                }
+              }
             }
           }
-        ],
+        },
         "responses": {
           "200": {
             "description": "Success get a user",
