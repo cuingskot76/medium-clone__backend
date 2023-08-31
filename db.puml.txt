@@ -16,9 +16,19 @@ entity User {
     --
     username: string
     email: string <UNI>
+    password: string
     createdAt: datetime
     bio: string
-    image: string
+    avatar: string
+    isMember: boolean
+    about: text
+}
+
+entity UserTag {
+    id: int <PK>
+    --
+    userId: int <FK>
+    tagId: int <FK>
 }
 
 entity Follow {
