@@ -8,6 +8,7 @@ entity Post {
     updatedAt: datetime
     published: boolean 
     userId: int <FK>
+    views: int
 }
 
 entity User {

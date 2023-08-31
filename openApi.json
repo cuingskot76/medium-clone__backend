@@ -28,7 +28,12 @@
   ],
   "tags": [
     {
-      "name": "blog"
+      "name": "blog",
+      "description": "Blog API"
+    },
+    {
+      "name": "user",
+      "description": "User API"
     }
   ],
   "paths": {
@@ -49,7 +54,54 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Success get all blogs",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get all blogs",
+                    "value": [
+                      {
+                        "id": "cjkl2j3k",
+                        "title": "How to learn programming",
+                        "content": "Lorem ipsum",
+                        "tags": ["programming", "javascript", "nodejs"],
+                        "userId": "1",
+                        "views": "5"
+                      },
+                      {
+                        "id": "bwn3oih",
+                        "title": "How to learn design",
+                        "content": "Lorem ipsum",
+                        "userId": "2",
+                        "views": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Blog not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response blog not found",
+                    "value": {
+                      "message": "Blog not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
@@ -69,11 +121,59 @@
               "default": 6
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get trending blogs",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get trending blogs",
+                    "value": [
+                      {
+                        "id": "cjkl2j3k",
+                        "title": "How to learn programming",
+                        "content": "Lorem ipsum",
+                        "tags": ["programming", "javascript", "nodejs"],
+                        "userId": "1",
+                        "views": "5"
+                      },
+                      {
+                        "id": "bwn3oih",
+                        "title": "How to learn design",
+                        "content": "Lorem ipsum",
+                        "userId": "2",
+                        "views": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Blog not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response blog not found",
+                    "value": {
+                      "message": "Blog not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
-    "/blogs/tag": {
+    "/blogs/tag/{blogTag}": {
       "get": {
         "tags": ["blog"],
         "summary": "Get blogs by tag",
@@ -98,12 +198,66 @@
               "default": 10
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get blogs by tag",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get blogs by 'coding' tag",
+                    "value": [
+                      {
+                        "id": "abc123",
+                        "title": "Mastering Next.js",
+                        "content": "lorem ipsum dolor sit amet",
+                        "tags": ["coding", "javascript", "nextjs"],
+                        "userId": "4",
+                        "views": "10"
+                      },
+                      {
+                        "id": "def456",
+                        "title": "Beginner React",
+                        "content": "lorem ipsum dolor sit amet",
+                        "tags": ["coding"],
+                        "userId": "5",
+                        "views": "5"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Tag not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response tag not found",
+                    "value": {
+                      "message": "Tag not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
     "/blog": {
       "post": {
+        "security": [
+          {
+            "BlogAuth": []
+          }
+        ],
         "tags": ["blog"],
         "summary": "Create a blog",
         "description": "Create a blog",
@@ -140,17 +294,100 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create a blog",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success create a blog",
+                    "value": {
+                      "id": "cjkl2j3k",
+                      "title": "How to learn programming",
+                      "content": "Lorem ipsum",
+                      "tags": ["programming", "javascript", "nodejs"],
+                      "userId": "1",
+                      "views": ""
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "unauthorized": {
+                    "description": "Example response unauthorized",
+                    "value": {
+                      "message": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
 
-    "/blog/{blogId}": {
+    "/blog/{blogId}/{blogTitle}": {
       "get": {
         "tags": ["blog"],
         "summary": "Get a blog",
-        "description": "Get a blog by id"
+        "description": "Get a blog by id",
+        "responses": {
+          "200": {
+            "description": "Success get a blog",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get a blog",
+                    "value": {
+                      "id": "cjkl2j3k",
+                      "title": "How to learn programming",
+                      "content": "Lorem ipsum",
+                      "tags": ["programming", "javascript", "nodejs"],
+                      "userId": "1",
+                      "views": "5"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Blog not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response blog not found",
+                    "value": {
+                      "message": "Blog not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "put": {
+        "security": [
+          {
+            "BlogAuth": []
+          }
+        ],
         "tags": ["blog"],
         "summary": "Update a blog",
         "description": "Update a blog by id",
@@ -184,9 +421,69 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Success update a blog",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success update a blog",
+                    "value": {
+                      "id": "cjkl2j3k",
+                      "title": "How to learn programming",
+                      "content": "Lorem ipsum",
+                      "tags": ["programming", "javascript", "nodejs"],
+                      "userId": "1",
+                      "views": "5"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "unauthorized": {
+                    "description": "Example response unauthorized",
+                    "value": {
+                      "message": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Blog not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response blog not found",
+                    "value": {
+                      "message": "Blog not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       },
       "delete": {
+        "security": [
+          {
+            "BlogAuth": []
+          }
+        ],
         "tags": ["blog"],
         "summary": "Delete a blog",
         "description": "Delete a blog by id",
@@ -200,11 +497,61 @@
               "type": "string"
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Success delete a blog",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success delete a blog",
+                    "value": {
+                      "message": "Success delete a blog"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "unauthorized": {
+                    "description": "Example response unauthorized",
+                    "value": {
+                      "message": "Unauthorized"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Blog not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response blog not found",
+                    "value": {
+                      "message": "Blog not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
-    "/blog/search": {
+    "/blogs/search": {
       "get": {
         "tags": ["blog"],
         "summary": "Search blogs",
@@ -235,7 +582,307 @@
               }
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Success search blogs by title",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success search blogs by 'coding' title",
+                    "value": [
+                      {
+                        "id": "abc123",
+                        "title": "Mastering Next.js",
+                        "content": "lorem ipsum dolor sit amet",
+                        "tags": ["coding", "javascript", "nextjs"],
+                        "userId": "4",
+                        "views": "10"
+                      },
+                      {
+                        "id": "def456",
+                        "title": "Beginner React",
+                        "content": "lorem ipsum dolor sit amet",
+                        "tags": ["coding"],
+                        "userId": "5",
+                        "views": "5"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Title not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response title not found",
+                    "value": {
+                      "message": "Title not found"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/@/{userName}": {
+      "get": {
+        "tags": ["user"],
+        "summary": "Get a user",
+        "description": "Get a user by username",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "username",
+            "description": "User name to get a user ",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get a user",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get a user",
+                    "value": {
+                      "username": "afrizal",
+                      "followers": "10",
+                      "following": "5",
+                      "blogs": {
+                        "id": "abc123",
+                        "title": "Mastering Next.js",
+                        "content": "lorem ipsum dolor sit amet",
+                        "tags": ["coding", "javascript", "nextjs"],
+                        "userId": "4",
+                        "views": "10"
+                      },
+                      "about": "lorem ipsum dolor sit amet",
+                      "bio": "lorem ipsum dolor sit amet",
+                      "avatar": "https://afrzl.vercel.app/static/media/avatar.5e9c5b5b.jpg"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "User not found",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "notFound": {
+                    "description": "Example response user not found",
+                    "value": {
+                      "message": "User not found"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "internalServerError": {
+                    "description": "Example response internal server error",
+                    "value": {
+                      "message": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/login": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Login a user",
+        "description": "Login a user with email and password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "afrzl@gmail.com",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success login a user",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "success": {
+                    "description": "Example response success login a user",
+                    "value": {
+                      "id": "abc123",
+                      "username": "afrizal",
+                      "token": "abc123def456ghi789"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Username or password is wrong",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "unauthorized": {
+                    "description": "Example response username or password is wrong",
+                    "value": {
+                      "message": "Username or password is wrong"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "internalServerError": {
+                    "description": "Example response internal server error",
+                    "value": {
+                      "message": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+
+    "/users/register": {
+      "post": {
+        "tags": ["user"],
+        "summary": "Register a user",
+        "description": "Register a user with email, username, and password",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "username": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "example": {
+                  "email": "afrzl@gmail.com",
+                  "username": "afrizal",
+                  "password": "123456"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success register a user",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "success": {
+                    "description": "Example response success register a user",
+                    "value": {
+                      "message": "Success register a user"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Email or username already exists",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "conflict": {
+                    "description": "Example response email or username already exists",
+                    "value": {
+                      "message": "Email or username already exists"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "examples": {
+                  "internalServerError": {
+                    "description": "Example response internal server error",
+                    "value": {
+                      "message": "Internal server error"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "securitySchemes": {
+      "BlogAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "blogAuth",
+        "description": "Auth with cookie"
       }
     }
   }
