@@ -49,7 +49,38 @@
             }
           }
         ],
-        "responses": {}
+        "responses": {
+          "200": {
+            "description": "Success get all blogs",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get all blogs",
+                    "value": [
+                      {
+                        "id": "cjkl2j3k",
+                        "title": "How to learn programming",
+                        "content": "Lorem ipsum",
+                        "tags": ["programming", "javascript", "nodejs"],
+                        "userId": "1",
+                        "views": "5"
+                      },
+                      {
+                        "id": "bwn3oih",
+                        "title": "How to learn design",
+                        "content": "Lorem ipsum",
+                        "userId": "2",
+                        "views": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
@@ -69,7 +100,39 @@
               "default": 6
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get trending blogs",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get trending blogs",
+                    "value": [
+                      {
+                        "id": "cjkl2j3k",
+                        "title": "How to learn programming",
+                        "content": "Lorem ipsum",
+                        "tags": ["programming", "javascript", "nodejs"],
+                        "userId": "1",
+                        "views": "5"
+                      },
+                      {
+                        "id": "bwn3oih",
+                        "title": "How to learn design",
+                        "content": "Lorem ipsum",
+                        "userId": "2",
+                        "views": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
@@ -98,12 +161,49 @@
               "default": 10
             }
           }
-        ]
+        ],
+        "responses": {
+          "200": {
+            "description": "Success get blogs by tag",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get blogs by tag",
+                    "value": [
+                      {
+                        "id": "cjkl2j3k",
+                        "title": "How to learn programming",
+                        "content": "Lorem ipsum",
+                        "tags": ["programming", "javascript", "nodejs"],
+                        "userId": "1",
+                        "views": "5"
+                      },
+                      {
+                        "id": "bwn3oih",
+                        "title": "How to learn design",
+                        "content": "Lorem ipsum",
+                        "userId": "2",
+                        "views": "3"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     },
 
     "/blog": {
       "post": {
+        "security": [
+          {
+            "BlogAuth": []
+          }
+        ],
         "tags": ["blog"],
         "summary": "Create a blog",
         "description": "Create a blog",
@@ -140,6 +240,29 @@
               }
             }
           }
+        },
+        "responses": {
+          "200": {
+            "description": "Success create a blog",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success create a blog",
+                    "value": {
+                      "id": "cjkl2j3k",
+                      "title": "How to learn programming",
+                      "content": "Lorem ipsum",
+                      "tags": ["programming", "javascript", "nodejs"],
+                      "userId": "1",
+                      "views": ""
+                    }
+                  }
+                }
+              }
+            }
+          }
         }
       }
     },
@@ -148,9 +271,37 @@
       "get": {
         "tags": ["blog"],
         "summary": "Get a blog",
-        "description": "Get a blog by id"
+        "description": "Get a blog by id",
+        "responses": {
+          "200": {
+            "description": "Success get a blog",
+            "content": {
+              "application/json": {
+                "schema": {},
+                "examples": {
+                  "success": {
+                    "description": "Example response success get a blog",
+                    "value": {
+                      "id": "cjkl2j3k",
+                      "title": "How to learn programming",
+                      "content": "Lorem ipsum",
+                      "tags": ["programming", "javascript", "nodejs"],
+                      "userId": "1",
+                      "views": "5"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       },
       "put": {
+        "security": [
+          {
+            "BlogAuth": []
+          }
+        ],
         "tags": ["blog"],
         "summary": "Update a blog",
         "description": "Update a blog by id",
@@ -236,6 +387,16 @@
             }
           }
         ]
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BlogAuth": {
+        "type": "apiKey",
+        "in": "cookie",
+        "name": "blogAuth",
+        "description": "Auth with cookie"
       }
     }
   }
