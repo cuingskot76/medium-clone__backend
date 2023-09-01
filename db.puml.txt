@@ -18,6 +18,12 @@ entity User {
     email: string <UNI>
     password: string
     createdAt: datetime
+}
+
+entity Profile {
+    id: int <PK>
+    --
+    userId: int <FK>
     bio: string
     avatar: string
     isMember: boolean
@@ -87,6 +93,11 @@ entity Tag {
 User ||--o{ Post
 note on link
     Has 
+end note
+
+User ||--|| Profile
+note on link
+    Has
 end note
 
 User ||--o{ Follow
