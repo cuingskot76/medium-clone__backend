@@ -848,14 +848,14 @@
             }
           },
           "409": {
-            "description": "Email or username already exists",
+            "description": "Email already exists",
             "content": {
               "application/json": {
                 "examples": {
                   "conflict": {
-                    "description": "Example response email or username already exists",
+                    "description": "Example response email already exists",
                     "value": {
-                      "message": "Email or username already exists"
+                      "message": "Email already exists"
                     }
                   }
                 }
