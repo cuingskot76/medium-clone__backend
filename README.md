@@ -1,6 +1,7 @@
 <p align="center">
-  RESTful API for Medium-clone web application
+  <strong>RESTful API for Medium-clone web application</strong>
 </p>
+
 
 ## Tech Stack
 -  [Nodejs](https://nodejs.org/en)
