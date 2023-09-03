@@ -24,4 +24,4 @@ app.use("/api/v1", UserRoute);
 
 const server = http.createServer(app);
 
-// server.listen(8080, () => console.log("Server is running on port 8080"));
+server.listen(8080, () => console.log("Server is running on port 8080"));
