@@ -7,6 +7,7 @@ import cookieParser from "cookie-parser";
 import UserRoute from "../routes/UserRoute";
 
 const app = express();
+app.use(cookieParser());
 
 app.use(
   cors({
@@ -14,7 +15,6 @@ app.use(
     origin: "http://localhost:3000",
   })
 );
-app.use(cookieParser());
 app.use(bodyParser.json());
 
 app.use("/api/v1", UserRoute);
