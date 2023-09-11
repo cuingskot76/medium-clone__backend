@@ -11,13 +11,21 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  username  String
-  email     String   @unique
+  id        Int        @id @default(autoincrement())
+  username  String     @unique
+  email     String     @unique
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
   profile   Profile?
+  posts     Post[]
+  comments  Comment[]
+  likes     PostLike[]
+  followers Follow[]   @relation("Follower")
+  following Follow[]   @relation("Following")
+
+  CommentReply CommentReply[]
+  CommentLike  CommentLike[]
 }
 
 model Profile {
@@ -28,4 +36,80 @@ model Profile {
   avatar   String?
   isMember Boolean @default(false)
   about    String?
+  banner   String?
+}
+
+model Post {
+  id         Int        @id @default(autoincrement())
+  title      String
+  content    String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  author     User       @relation(fields: [authorId], references: [id])
+  authorId   Int
+  published  Boolean    @default(false)
+  categories Category[]
+  views      Int?       @default(0)
+  comments   Comment[]
+  likes      PostLike[]
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  posts Post[]
+}
+
+model Comment {
+  id          Int            @id @default(autoincrement())
+  content     String
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+  author      User           @relation(fields: [authorId], references: [id])
+  authorId    Int
+  post        Post?          @relation(fields: [postId], references: [id])
+  postId      Int
+  replies     CommentReply[]
+  CommentLike CommentLike[]
+}
+
+model CommentReply {
+  id        Int      @id @default(autoincrement())
+  content   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
+}
+
+model CommentLike {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  comment   Comment  @relation(fields: [commentId], references: [id])
+  commentId Int
+}
+
+model PostLike {
+  id        Int      @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  post      Post     @relation(fields: [postId], references: [id])
+  postId    Int
+}
+
+model Follow {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  follower    User     @relation("Follower", fields: [followerId], references: [id])
+  followerId  Int
+  following   User     @relation("Following", fields: [followingId], references: [id])
+  followingId Int
 }
