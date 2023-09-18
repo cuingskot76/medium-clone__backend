@@ -20,7 +20,7 @@ const router = express.Router();
 // AUTH
 router.post("/users/register", createUser);
 router.post("/users/login", loginUser);
-router.get("/logout", logoutUser);
+router.delete("/logout", logoutUser);
 router.get("/token", refreshToken);
 
 // get all users profile
