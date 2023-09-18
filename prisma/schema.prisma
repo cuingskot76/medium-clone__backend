@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
+  id        String     @id @default(cuid())
   username  String     @unique
   email     String     @unique
   password  String
@@ -30,7 +30,7 @@ model User {
 
 model Profile {
   id       Int     @id @default(autoincrement())
-  userId   Int     @unique
+  userId   String  @unique
   user     User    @relation(fields: [userId], references: [id])
   bio      String?
   avatar   String?
@@ -40,18 +40,20 @@ model Profile {
 }
 
 model Post {
-  id         Int        @id @default(autoincrement())
+  id         String     @id @default(cuid())
   title      String
-  content    String
+  subTitle   String?
+  content    String     @db.LongText
   createdAt  DateTime   @default(now())
   updatedAt  DateTime   @updatedAt
   author     User       @relation(fields: [authorId], references: [id])
-  authorId   Int
+  authorId   String
   published  Boolean    @default(false)
   categories Category[]
   views      Int?       @default(0)
   comments   Comment[]
   likes      PostLike[]
+  isPremium  Boolean    @default(false)
 }
 
 model Category {
@@ -66,9 +68,9 @@ model Comment {
   createdAt   DateTime       @default(now())
   updatedAt   DateTime       @updatedAt
   author      User           @relation(fields: [authorId], references: [id])
-  authorId    Int
+  authorId    String
   post        Post?          @relation(fields: [postId], references: [id])
-  postId      Int
+  postId      String
   replies     CommentReply[]
   CommentLike CommentLike[]
 }
@@ -79,7 +81,7 @@ model CommentReply {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  String
   comment   Comment  @relation(fields: [commentId], references: [id])
   commentId Int
 }
@@ -89,7 +91,7 @@ model CommentLike {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  String
   comment   Comment  @relation(fields: [commentId], references: [id])
   commentId Int
 }
@@ -99,9 +101,9 @@ model PostLike {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   author    User     @relation(fields: [authorId], references: [id])
-  authorId  Int
+  authorId  String
   post      Post     @relation(fields: [postId], references: [id])
-  postId    Int
+  postId    String
 }
 
 model Follow {
@@ -109,7 +111,7 @@ model Follow {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   follower    User     @relation("Follower", fields: [followerId], references: [id])
-  followerId  Int
+  followerId  String
   following   User     @relation("Following", fields: [followingId], references: [id])
-  followingId Int
+  followingId String
 }
