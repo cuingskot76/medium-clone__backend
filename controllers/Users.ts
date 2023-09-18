@@ -28,7 +28,7 @@ export const createUser = async (req: Request, res: Response) => {
     }
 
     if (checkEmail) {
-      return res.status(409).json({ message: "Email already exists" });
+      return res.status(422).json({ message: "Email already exists" });
     }
 
     await prisma.user.create({
@@ -102,7 +102,14 @@ export const loginUser = async (req: Request, res: Response) => {
       maxAge: 24 * 60 * 60 * 1000,
     });
 
-    return res.status(200).json({ accessToken });
+    const currentUser = {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      accessToken,
+    };
+
+    return res.status(200).json(currentUser);
   } catch (error) {
     return res.status(503).json({ message: "Internal server error" });
   }
@@ -113,7 +120,7 @@ export const logoutUser = async (req: Request, res: Response) => {
     res.clearCookie("jwt", {
       httpOnly: true,
     });
-    return res.status(204).json({ message: "Logout successful" });
+    return res.status(200).json({ message: "Logout successful" });
   } catch (error) {
     return res.status(500).json({ message: "Internal server error" });
   }
