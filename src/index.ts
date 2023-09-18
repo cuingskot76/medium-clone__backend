@@ -5,6 +5,7 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 
 import UserRoute from "../routes/UserRoute";
+import PostRoute from "../routes/PostRoute";
 
 const app = express();
 app.use(cookieParser());
@@ -18,6 +19,7 @@ app.use(
 app.use(bodyParser.json());
 
 app.use("/api/v1", UserRoute);
+app.use("/api/v1", PostRoute);
 
 const server = http.createServer(app);
 
