@@ -2,8 +2,8 @@ POST http://localhost:8080/api/v1/users/register
 Content-Type: application/json
 
 {
-    "username": "user",
-    "email": "123@gmail.com",
+    "username": "test",
+    "email": "test@gmail.com",
     "password": "123"
 }
 
@@ -12,6 +12,33 @@ POST http://localhost:8080/api/v1/users/login
 Content-Type: application/json
 
 {
-    "email": "123@gmail.com",
+    "email": "test@gmail.com",
     "password": "123"
 }
+
+###
+GET http://localhost:8080/api/v1/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiZW1haWwiOiIxMjNAZ21haWwuY29tIiwidXNlcm5hbWUiOiJ1c2VyIiwiaWF0IjoxNjk0MDE3MDQ1LCJleHAiOjE2OTQwMTcwNzV9.CoWRa5pk4qUTGDmQpDc_qx-6rsn4KAQmSsImTc-wqnQ
+
+### 
+GET http://localhost:8080/api/v1/token
+
+###
+DELETE http://localhost:8080/api/v1/logout
+
+###
+GET http://localhost:8080/api/v1/users/afrzl
+
+###
+GET http://localhost:8080/api/v1/@test
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTQ0MzgxNjMsImV4cCI6MTY5NDQzODIyM30.FeOaPuTaysaRQ-zlwuEsopCgnqchoUSUoIsxx0sSri4
+
+###
+GET http://localhost:8080/api/v1/@afrzl/about
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTQ0MzgxNjMsImV4cCI6MTY5NDQzODIyM30.FeOaPuTaysaRQ-zlwuEsopCgnqchoUSUoIsxx0sSri4
+###
+GET http://localhost:8080/api/v1/@afrzl/settings/account
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTIsImVtYWlsIjoidGVzdEBnbWFpbC5jb20iLCJ1c2VybmFtZSI6InRlc3QiLCJpYXQiOjE2OTQ0MzkzNTcsImV4cCI6MTY5NDQzOTQxN30.uMfx8H4yOwkw-RmLVc2QWAW3382fZ4u_bVhXie_EpjI
+
+###
+GET http://localhost:8080/api/v1/tag/Programming
