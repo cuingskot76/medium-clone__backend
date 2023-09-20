@@ -28,6 +28,7 @@ entity Profile {
     avatar: string
     isMember: boolean
     about: string
+    banner: string
 }
 
 entity UserTag {
@@ -95,6 +96,16 @@ note on link
     Has 
 end note
 
+UserTag }|--|| User
+note on link
+    Has
+end note
+
+UserTag }|--|| Tag
+note on link
+    Has
+end note
+
 User ||--|| Profile
 note on link
     Has
@@ -105,7 +116,7 @@ note on link
     Following
 end note
 
-PostTag }o--|| Post
+PostTag }|--|| Post
 note on link
    Has
 end note
