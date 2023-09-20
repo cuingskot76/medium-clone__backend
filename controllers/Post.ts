@@ -47,3 +47,29 @@ export const tagPost = async (req: Request, res: Response) => {
     return res.status(500).json({ message: "Internal server error" });
   }
 };
+
+export const getPost = async (req: Request, res: Response) => {
+  try {
+    const { postId } = req.params;
+
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      },
+    });
+
+    return res.status(200).json({ post });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+export const getPosts = async (req: Request, res: Response) => {
+  try {
+    const post = await prisma.post.findMany();
+
+    return res.status(200).json({ post });
+  } catch (error) {
+    return res.status(500).json({ message: "Internal server error" });
+  }
+};
